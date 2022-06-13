@@ -1,9 +1,15 @@
 import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 public class StudentList {
     public static void main(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Invalid number of arguments");
+            return;
+        }
 
 //		Check arguments
         if (args[0].equals("a")) {
