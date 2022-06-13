@@ -5,74 +5,74 @@ import java.util.Date;
 import java.util.Random;
 
 public class StudentList {
+
     public static String getLineFromFile() throws Exception {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("students.txt")));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(Constants.STUDENTS_FILE_NAME)));
         String line = bufferedReader.readLine();
         return line;
     }
 
     public static BufferedWriter getFileBufferedWriter() throws Exception {
-        return new BufferedWriter(new FileWriter("students.txt", true));
+        return new BufferedWriter(new FileWriter(Constants.STUDENTS_FILE_NAME, true));
     }
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Invalid number of arguments");
+            System.err.println(Constants.MSG_INVALID_ARGUMENTS);
             return;
         }
 
 //		Check arguments
-        if (args[0].equals("a")) {
-            System.out.println("Loading data ...");
+        if (args[0].equals(Constants.ARG_LIST_DATA)) {
+            System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                String words[] = getLineFromFile().split(", ");
+                String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
                 for (String word : words) {
                     System.out.println(word);
                 }
             } catch (Exception e) {
             }
-            System.out.println("Data Loaded.");
-        } else if (args[0].equals("r")) {
-            System.out.println("Loading data ...");
+            System.out.println(Constants.MSG_LOADED_DATA);
+        } else if (args[0].equals(Constants.ARG_SHOW_RANDOM_DATA)) {
+            System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                String words[] = getLineFromFile().split(", ");
+                String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
                 Random random = new Random();
                 int wordIndex = random.nextInt(words.length);
                 System.out.println(words[wordIndex]);
             } catch (Exception e) {
             }
-            System.out.println("Data Loaded.");
-        } else if (args[0].contains("+")) {
-            System.out.println("Loading data ...");
+            System.out.println(Constants.MSG_LOADED_DATA);
+        } else if (args[0].contains(Constants.ARG_ADD_DATA)) {
+            System.out.println(Constants.MSG_LOADING_DATA);
             try {
                 BufferedWriter bufferedWriter = getFileBufferedWriter();
                 String wordToAdd = args[0].substring(1);
                 Date date = new Date();
-                String dateFormatString = "dd-mm-yyyy hh:mm:ss a";
-                DateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+                DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMAT_PATTERN);
                 String formattedDate = dateFormat.format(date);
-                bufferedWriter.write(", " + wordToAdd + "\nList last updated on " + formattedDate);
+                bufferedWriter.write(Constants.WORDS_SPLIT_REGEX + wordToAdd + "\n" + Constants.MSG_DATA_UPDATED + " " + formattedDate);
                 bufferedWriter.close();
             } catch (Exception e) {
             }
-            System.out.println("Data Loaded.");
-        } else if (args[0].contains("?")) {
-            System.out.println("Loading data ...");
+            System.out.println(Constants.MSG_LOADED_DATA);
+        } else if (args[0].contains(Constants.ARG_FIND_DATA)) {
+            System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                String words[] = getLineFromFile().split(", ");
+                String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
                 boolean done = false;
                 String wordToSearch = args[0].substring(1);
                 for (int index = 0; index < words.length && !done; index++) {
                     if (words[index].equals(wordToSearch)) {
-                        System.out.println("We found it!");
+                        System.out.println(Constants.MSG_DATA_FOUND);
                         done = true;
                     }
                 }
             } catch (Exception e) {
             }
-            System.out.println("Data Loaded.");
-        } else if (args[0].contains("c")) {
-            System.out.println("Loading data ...");
+            System.out.println(Constants.MSG_LOADED_DATA);
+        } else if (args[0].contains(Constants.ARG_COUNT_WORDS)) {
+            System.out.println(Constants.MSG_LOADING_DATA);
             try {
                 char charArray[] = getLineFromFile().toCharArray();
                 boolean in_word = false;
@@ -87,10 +87,10 @@ public class StudentList {
                         }
                     }
                 }
-                System.out.println(count + " word(s) found");
+                System.out.println(count + " " + Constants.MSG_WORDS_FOUND);
             } catch (Exception e) {
             }
-            System.out.println("Data Loaded.");
+            System.out.println(Constants.MSG_LOADED_DATA);
         }
     }
 }
