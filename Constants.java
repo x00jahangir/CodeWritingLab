@@ -19,4 +19,5 @@ public class Constants {
     public static final String DATE_FORMAT_PATTERN = "dd-mm-yyyy hh:mm:ss a";
 
 
+    public static final String MSG_DATA_NOT_FOUND = "We could not find it!";
 }
