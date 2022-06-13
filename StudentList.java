@@ -67,19 +67,7 @@ public class StudentList {
         } else if (args[0].contains(Constants.ARG_COUNT_WORDS)) {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                boolean in_word = false;
-                int count = 0;
-                for (char c : getLineFromFile().toCharArray()) {
-                    if (c == ' ') {
-                        if (!in_word) {
-                            count++;
-                            in_word = true;
-                        } else {
-                            in_word = false;
-                        }
-                    }
-                }
-                System.out.println(count + " " + Constants.MSG_WORDS_FOUND);
+                System.out.println(getLineFromFile().split(Constants.WORDS_SPLIT_REGEX).length / 2 + " " + Constants.MSG_WORDS_FOUND);
             } catch (Exception e) {
             }
             System.out.println(Constants.MSG_LOADED_DATA);
