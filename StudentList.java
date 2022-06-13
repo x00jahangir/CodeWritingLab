@@ -1,6 +1,8 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
@@ -54,13 +56,10 @@ public class StudentList {
         } else if (args[0].contains(Constants.ARG_FIND_DATA)) {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
-                boolean done = false;
-                for (int index = 0; index < words.length && !done; index++) {
-                    if (words[index].equals(args[0].substring(1))) {
-                        System.out.println(Constants.MSG_DATA_FOUND);
-                        done = true;
-                    }
+                if (Arrays.asList(getLineFromFile().split(Constants.WORDS_SPLIT_REGEX)).contains(args[0].substring(1))) {
+                    System.out.println(Constants.MSG_DATA_FOUND);
+                } else {
+                    System.out.println(Constants.MSG_DATA_NOT_FOUND);
                 }
             } catch (Exception e) {
             }
