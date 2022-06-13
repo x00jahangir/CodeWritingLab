@@ -26,8 +26,7 @@ public class StudentList {
         if (args[0].equals(Constants.ARG_LIST_DATA)) {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
-                for (String word : words) {
+                for (String word : getLineFromFile().split(Constants.WORDS_SPLIT_REGEX)) {
                     System.out.println(word);
                 }
             } catch (Exception e) {
@@ -37,8 +36,7 @@ public class StudentList {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
                 String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
-                Random random = new Random();
-                int wordIndex = random.nextInt(words.length);
+                int wordIndex = new Random().nextInt(words.length);
                 System.out.println(words[wordIndex]);
             } catch (Exception e) {
             }
@@ -47,11 +45,8 @@ public class StudentList {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
                 BufferedWriter bufferedWriter = getFileBufferedWriter();
-                String wordToAdd = args[0].substring(1);
-                Date date = new Date();
-                DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMAT_PATTERN);
-                String formattedDate = dateFormat.format(date);
-                bufferedWriter.write(Constants.WORDS_SPLIT_REGEX + wordToAdd + "\n" + Constants.MSG_DATA_UPDATED + " " + formattedDate);
+                String formattedDate = new SimpleDateFormat(Constants.DATE_FORMAT_PATTERN).format(new Date());
+                bufferedWriter.write(Constants.WORDS_SPLIT_REGEX + args[0].substring(1) + "\n" + Constants.MSG_DATA_UPDATED + " " + formattedDate);
                 bufferedWriter.close();
             } catch (Exception e) {
             }
@@ -61,9 +56,8 @@ public class StudentList {
             try {
                 String words[] = getLineFromFile().split(Constants.WORDS_SPLIT_REGEX);
                 boolean done = false;
-                String wordToSearch = args[0].substring(1);
                 for (int index = 0; index < words.length && !done; index++) {
-                    if (words[index].equals(wordToSearch)) {
+                    if (words[index].equals(args[0].substring(1))) {
                         System.out.println(Constants.MSG_DATA_FOUND);
                         done = true;
                     }
@@ -74,10 +68,9 @@ public class StudentList {
         } else if (args[0].contains(Constants.ARG_COUNT_WORDS)) {
             System.out.println(Constants.MSG_LOADING_DATA);
             try {
-                char charArray[] = getLineFromFile().toCharArray();
                 boolean in_word = false;
                 int count = 0;
-                for (char c : charArray) {
+                for (char c : getLineFromFile().toCharArray()) {
                     if (c == ' ') {
                         if (!in_word) {
                             count++;
