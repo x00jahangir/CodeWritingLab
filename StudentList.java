@@ -20,7 +20,7 @@ public class StudentList {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println(Constants.MSG_INVALID_ARGUMENTS);
+            System.err.println(Constants.MSG_INVALID_NUMBER_OF_ARGUMENTS);
             return;
         }
 
@@ -71,6 +71,9 @@ public class StudentList {
             } catch (Exception e) {
             }
             System.out.println(Constants.MSG_LOADED_DATA);
+        } else {
+            System.err.println(Constants.MSG_INVALID_ARGUMENTS);
+            System.exit(2);
         }
     }
 }
